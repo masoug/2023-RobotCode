@@ -15,10 +15,14 @@ private:
     Limelight* limelight;
     SwerveDrive* swerveDrive;
 
-    const Eigen::Matrix<double, 5, 1, 0, 5, 1> stateStdDevs = {0.01, 0.01, 0.01, 0.01, 0.01};
-    const Eigen::Matrix<double, 3, 1, 0, 3, 1> localMeasurementStdDevs = {0.1, 0.1, 0.1};
-    const Eigen::Matrix<double, 3, 1, 0, 3, 1> visionMeasurementStdDevs = {0.1, 0.1, 0.1};
+    const wpi::array<double, 5> stateStdDevs = {0.01, 0.01, 0.01, 0.01, 0.01};
+    const wpi::array<double, 3> localMeasurementStdDevs = {0.1, 0.1, 0.1};
+    const wpi::array<double, 3> visionMeasurementStdDevs = {0.1, 0.1, 0.1};
 
-    
+    frc::DifferentialDrivePoseEstimator estimator{
+        frc::Rotation2d(), frc::Pose2d(),
+        stateStdDevs,
+        localMeasurementStdDevs,
+        visionMeasurementStdDevs};
 
 };
