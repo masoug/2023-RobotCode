@@ -7,6 +7,7 @@
 #include <frc/StateSpaceUtil.h>
 #include <frc/MathUtil.h>
 #include "SwerveModule.h"
+#include <frc/Timer.h>
 
 class DrivePoseEstimator {
     public:
@@ -22,12 +23,10 @@ class DrivePoseEstimator {
         frc::Translation2d backLeftLocation_{-0.381_m, +0.381_m};
         frc::Translation2d backRightLocation_{-0.381_m, -0.381_m};
 
-        /*
-        SwerveModule frontLeft_{1, 2, 0, 1, 2, 3};
-        SwerveModule frontRight_{3, 4, 4, 5, 6, 7};
-        SwerveModule backLeft_{5, 6, 8, 9, 10, 11};
-        SwerveModule backRight_{7, 8, 12, 13, 14, 15};
-        */
+        SwerveModule frontLeft_{0, 0, 0, 0.0, false};
+        SwerveModule frontRight_{0, 0, 0, 0.0, false};
+        SwerveModule backLeft_{0, 0, 0, 0.0, false};
+        SwerveModule backRight_{0, 0, 0, 0.0, false};
 
         frc::SwerveDriveKinematics<4> kinematics_{
             frontLeftLocation_, frontRightLocation_,
