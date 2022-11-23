@@ -1,9 +1,9 @@
 #include "DrivePoseEstimator.h"
 
-DrivePoseEstimator::DrivePoseEstimator(Limelight& limelight, SwerveDrive& swerveDrive, AHRS& navx) {
-    this->limelight = &limelight;
+DrivePoseEstimator::DrivePoseEstimator(photonlib::PhotonCamera& photonCamera, SwerveDrive& swerveDrive, AHRS& navx) {
     this->swerveDrive = &swerveDrive;
     this->navx = &navx;
+    this->photonCamera = &photonCamera;
 }
 
 /**
@@ -11,7 +11,14 @@ DrivePoseEstimator::DrivePoseEstimator(Limelight& limelight, SwerveDrive& swerve
 * @todo Switch from Limelight to Photonvision
 */
 void DrivePoseEstimator::update() {
-    estimator.Update(navx->GetRotation2d(), frontLeft_.getState(), 
-        frontRight_.getState(), backLeft_.getState(), backRight_.getState());
-    estimator.AddVisionMeasurement(limelight->getPose(0.0, 0.0), frc::Timer::GetFPGATimestamp() - 0.3_s);
+    estimator.Update(navx->GetRotation2d(), swerveDrive->getRealModuleStates());
+    // TODO: figure out how to add camera measurement
+    //estimator.AddVisionMeasurement(limelight->getPose(0.0, 0.0), frc::Timer::GetFPGATimestamp() - 0.3_s);
+    //auto res = photonCamera->GetLatestResult();
+    //if (res.HasTargets()) {
+    //    auto imageCaptureTime = res.GetTimestamp();
+    //    auto camTargetTrans = res.GetBestTarget().GetBestCameraToTarget();
+    //    auto camPose = 
+    //}
+
 }
