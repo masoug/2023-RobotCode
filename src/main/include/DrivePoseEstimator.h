@@ -25,6 +25,7 @@ class DrivePoseEstimator {
             backLeftLocation_, backRightLocation_
         };
 
+        // TODO tune these hyperparameters
         const wpi::array<double, 3> stateStdDevs = {0.01, 0.01, 0.01};
         const wpi::array<double, 1> localMeasurementStdDevs = {0.1};
         const wpi::array<double, 3> visionMeasurementStdDevs = {0.1, 0.1, 0.1};
