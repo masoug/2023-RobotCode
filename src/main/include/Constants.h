@@ -33,6 +33,8 @@ namespace GeneralConstants
 
     const int MAX_BALL_COUNT = 1;
 
+    const frc::Pose2d FAR_TARGET_POSE; // TODO figure out this constant at 2023 game start
+
 }
 
 namespace LimelightConstants
@@ -47,6 +49,12 @@ namespace LimelightConstants
     const double TARGET_HEIGHT_UPPER = 2.641;
     const double TARGET_HEIGHT_LOWER = TARGET_HEIGHT_UPPER - 0.0508;
     const double GOAL_RADIUS = 0.6096;
+
+    // TODO check with Susan if these are correct
+    const frc::Transform3d CAMERA_TO_ROBOT(
+        frc::Translation3d(units::meter_t(ROBOT_TURRET_CENTER_DISTANCE), units::meter_t(0.0), 
+        units::meter_t(ROBOT_TURRET_CENTER_DISTANCE)), frc::Rotation3d());
+
 }
 
 namespace InputConstants
