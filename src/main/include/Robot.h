@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <ctime>
 #include <AHRS.h>
 #include <frc/TimedRobot.h>
 #include <frc/smartdashboard/SendableChooser.h>
@@ -8,6 +9,7 @@
 #include "Limelight.h"
 #include "frc/Joystick.h"
 #include "Constants.h"
+#include "DataLogger.h"
 
 class Robot : public frc::TimedRobot {
  public:
@@ -28,10 +30,14 @@ class Robot : public frc::TimedRobot {
    AHRS * navx_; //can't be initialized by compiler because doesn't have a constructor :(
    SwerveDrive * swerveDrive_; //pointer because it relies on navx being initialized
    Limelight limelight_;
+   DataLogger * logger; //initialization depends on runtime info (data & time for log name/file path)
+   DataLogger::DataFields datalogFields_;
 
    frc::Joystick ljoy{InputConstants::LJOY_PORT};
    frc::Joystick rjoy{InputConstants::RJOY_PORT};
 
    double joy_val_to_mps(double val);
    double joy_rot_to_rps(double rot); 
+
+   
 };

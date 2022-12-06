@@ -8,10 +8,33 @@
 void Robot::RobotInit() {
   navx_ = new AHRS(frc::SPI::Port::kMXP);
   swerveDrive_ = new SwerveDrive(navx_, limelight_);
+
+  //initialize datalogger
+  //may want to read fields from a file as they get extensive
+  datalogFields_ = {
+    {"swerve.X", DataLogger::DataType::FLOAT64},
+    {"swerve.Y", DataLogger::DataType::FLOAT64},
+  };
+
+  //get current date & time in desireable format, append to log file name
+  std::time_t t = std::time(0);
+  std::tm * now = std::localtime(&t);
+  std::string dateTimeStamp = std::to_string(now->tm_year + 1900) + "-" + std::to_string(now->tm_mon) + "-" + std::to_string(now->tm_mday) 
+    + "_" + std::to_string(now->tm_hour) + ":" + std::to_string(now->tm_min) + ":" + std::to_string(now->tm_sec);
+  std::string path = "robotlog-" + dateTimeStamp;
+
+  //initialzie datalogger object
+  logger = new DataLogger(path, datalogFields_);
 }
 
 void Robot::RobotPeriodic() {
   limelight_.lightOn(false);
+
+  //log value of registerd data fields
+  logger->get_float64("swerve.X") = swerveDrive_->getX();
+  logger->get_float64("swerve.Y") = swerveDrive_->getY();
+
+  logger->publish(); //flush logged values to file
 }
 
 void Robot::AutonomousInit() {
