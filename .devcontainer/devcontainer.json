@@ -5,7 +5,7 @@
 
     // Set the Docker image to use
     // I will explain this below
-    "image":"wpilib/roborio-cross-ubuntu",
+    "image":"wpilib/roborio-cross-ubuntu:2023-22.04",
 
     // Set any default VSCode settings here
     "settings": {
